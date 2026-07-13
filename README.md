@@ -1,6 +1,6 @@
 # O-Machine 10,000-D Interlingua Polysemy Showcase
 
-An open-source interactive showcase demonstrating **Vector-Symbolic Architectures (VSA / High-Dimensional Computing)** solving complex contextual polysemy across languages (English $\rightarrow$ French) in **$<1\text{ ms}$ CPU latency at $\$0$ cost**.
+An open-source interactive showcase demonstrating **Vector-Symbolic Architectures (VSA / High-Dimensional Computing)** solving complex contextual polysemy across languages (English $\rightarrow$ French) in **$<1\text{ ms}$ CPU latency at 0$ cost**.
 
 > **Architecture:** Based on the Neuro-Semiotic Architecture developed by **[Martin Trajkow](https://www.linkedin.com/in/martin-trajkow/)**.  
 > Learn more about O-Machine and real-time enterprise causal intelligence at **[https://o-machine.com](https://o-machine.com)**.
