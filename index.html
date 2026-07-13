@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O-Machine — HDC Interlingua Polysemy Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #ffffff;
+            --color-bg-subtle: #f8fafc;
+            --color-bg-raised: #f1f5f9;
+            --color-text-primary: #111318;
+            --color-text-secondary: #64748b;
+            --color-text-tertiary: #94a3b8;
+            --color-border: #e2e8f0;
+            --color-border-strong: #cbd5e1;
+            --color-accent: #4f46e5;
+            --color-accent-hover: #4338ca;
+            --color-accent-subtle: #eef2ff;
+            --color-success: #16a34a;
+            --color-success-subtle: #f0fdf4;
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text-primary);
+            font-size: 15px;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            padding: 0;
+        }
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+        header {
+            margin-bottom: 40px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: var(--color-accent-subtle);
+            color: var(--color-accent);
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            color: var(--color-text-secondary);
+            font-size: 15px;
+        }
+        .subtitle a {
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+        .subtitle a:hover { text-decoration: underline; }
+
+        /* Input area */
+        .input-section {
+            margin-bottom: 32px;
+        }
+        .input-wrapper {
+            display: flex;
+            gap: 8px;
+        }
+        .input {
+            flex: 1;
+            height: 44px;
+            padding: 0 14px;
+            background: var(--color-bg-subtle);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            font-family: inherit;
+            color: var(--color-text-primary);
+            outline: none;
+            transition: border-color 150ms, box-shadow 150ms;
+        }
+        .input:focus {
+            border-color: var(--color-border-strong);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+            background: var(--color-bg);
+        }
+        .input::placeholder { color: var(--color-text-tertiary); }
+        .btn {
+            height: 44px;
+            padding: 0 18px;
+            background: var(--color-accent);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            transition: background 150ms;
+            white-space: nowrap;
+        }
+        .btn:hover { background: var(--color-accent-hover); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* Example chips */
+        .examples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+        .example-chip {
+            padding: 5px 12px;
+            background: var(--color-bg-raised);
+            border: 1px solid var(--color-border);
+            border-radius: 100px;
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: background 150ms, border-color 150ms;
+        }
+        .example-chip:hover {
+            background: var(--color-accent-subtle);
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+        }
+
+        /* Results */
+        .result-card {
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 20px 24px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+        .result-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--color-text-tertiary);
+            margin-bottom: 6px;
+        }
+        .result-text {
+            font-size: 16px;
+            color: var(--color-text-primary);
+            line-height: 1.5;
+        }
+        .result-french {
+            font-size: 16px;
+            color: var(--color-accent);
+            font-weight: 500;
+        }
+
+        /* Disambiguation detail */
+        .disambig-section {
+            margin-top: 20px;
+        }
+        .disambig-item {
+            background: var(--color-success-subtle);
+            border: 1px solid #bbf7d0;
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            margin-bottom: 8px;
+        }
+        .disambig-word {
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+        .disambig-arrow {
+            color: var(--color-text-tertiary);
+            margin: 0 6px;
+        }
+        .disambig-result {
+            font-weight: 600;
+            color: var(--color-success);
+        }
+        .disambig-meta {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            margin-top: 4px;
+        }
+        .gain-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--color-success-subtle);
+            border: 1px solid #bbf7d0;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--color-success);
+            margin-left: 6px;
+        }
+
+        /* Meta line */
+        .meta-line {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--color-text-tertiary);
+        }
+        .meta-pill {
+            padding: 3px 10px;
+            background: var(--color-bg-raised);
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--color-border);
+            font-size: 13px;
+            color: var(--color-text-tertiary);
+        }
+        footer a { color: var(--color-accent); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Open Source Demo</div>
+            <h1>HDC Interlingua Polysemy</h1>
+            <p class="subtitle">
+                10,000-D self-attention resolves ambiguous words in &lt;2ms.
+                Built on the <a href="https://o-machine.com">O-Machine</a> neuro-semiotic architecture.
+            </p>
+        </header>
+
+        <div class="input-section">
+            <div class="input-wrapper">
+                <input type="text" class="input" id="sentence-input"
+                       placeholder="Type an English sentence with an ambiguous word..."
+                       autocomplete="off">
+                <button class="btn" id="translate-btn" onclick="doTranslate()">Translate</button>
+            </div>
+            <div class="examples">
+                <span class="example-chip" onclick="useExample(this)">I deposited money in the bank</span>
+                <span class="example-chip" onclick="useExample(this)">The river bank was covered in grass</span>
+                <span class="example-chip" onclick="useExample(this)">The prison guard locked the cell</span>
+                <span class="example-chip" onclick="useExample(this)">We need to scale the cloud server</span>
+                <span class="example-chip" onclick="useExample(this)">The crane lifted steel beams</span>
+                <span class="example-chip" onclick="useExample(this)">Play the scale on violin</span>
+            </div>
+        </div>
+
+        <div id="results" style="display:none;">
+            <div class="result-card">
+                <div class="result-label">French Translation</div>
+                <div class="result-french" id="french-output"></div>
+                <div class="meta-line">
+                    <span>Domain: <span class="meta-pill" id="domain-output"></span></span>
+                    <span>Latency: <span id="latency-output"></span></span>
+                </div>
+            </div>
+
+            <div class="disambig-section" id="disambig-section"></div>
+        </div>
+
+        <footer>
+            <p>
+                Based on the Neuro-Semiotic Architecture by
+                <a href="https://o-machine.com">Martin Trajkow</a>.
+                Zero external APIs. Zero training data. Pure geometric reasoning.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        const input = document.getElementById('sentence-input');
+        input.addEventListener('keydown', e => { if (e.key === 'Enter') doTranslate(); });
+
+        function useExample(el) {
+            input.value = el.textContent;
+            doTranslate();
+        }
+
+        async function doTranslate() {
+            const sentence = input.value.trim();
+            if (!sentence) return;
+
+            const btn = document.getElementById('translate-btn');
+            btn.disabled = true;
+            btn.textContent = '...';
+
+            try {
+                const res = await fetch('/api/translate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ sentence }),
+                });
+                const data = await res.json();
+                renderResult(data);
+            } catch (e) {
+                console.error(e);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Translate';
+            }
+        }
+
+        function renderResult(data) {
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('french-output').textContent = data.translated_french;
+            document.getElementById('domain-output').textContent = data.primary_domain;
+            document.getElementById('latency-output').textContent = data.latency_ms.toFixed(2) + ' ms';
+
+            const section = document.getElementById('disambig-section');
+            section.innerHTML = '';
+
+            if (data.polysemic_resolutions && data.polysemic_resolutions.length > 0) {
+                for (const p of data.polysemic_resolutions) {
+                    const gain = p.resonance_gain || 0;
+                    const pre = p.pre_attention_scores || {};
+                    const post = p.post_attention_scores || {};
+                    const winDom = p.winning_domain;
+
+                    let html = `
+                        <div class="disambig-item">
+                            <span class="disambig-word">${p.english_word}</span>
+                            <span class="disambig-arrow">&rarr;</span>
+                            <span class="disambig-result">${p.selected_french}</span>
+                            <span class="gain-badge">+${(gain * 100).toFixed(0)}% resonance</span>
+                            <div class="disambig-meta">
+                                Resolved to <strong>${winDom}</strong> via self-attention.
+                                Pre: ${(pre[winDom] || 0).toFixed(3)} &rarr; Post: ${(post[winDom] || 0).toFixed(3)}
+                            </div>
+                        </div>
+                    `;
+                    section.innerHTML += html;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
