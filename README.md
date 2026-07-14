@@ -1,6 +1,6 @@
 # O-Machine 10,000-D Interlingua Polysemy Showcase
 
-An open-source interactive showcase demonstrating **Vector-Symbolic Architectures (VSA / High-Dimensional Computing)** solving complex contextual polysemy across languages (English $\rightarrow$ French) in **$<1\text{ ms}$ CPU latency at 0$ cost**.
+An open-source interactive showcase demonstrating **Vector-Symbolic Architectures (VSA / High-Dimensional Computing)** solving complex contextual polysemy across languages (English $\rightarrow$ French) in **$<1\text{ ms}$ CPU latency at $\$0$ cost**.
 
 > **Architecture:** Based on the Neuro-Semiotic Architecture developed by **[Martin Trajkow](https://www.linkedin.com/in/martin-trajkow/)**.  
 > Learn more about O-Machine and real-time enterprise causal intelligence at **[https://o-machine.com](https://o-machine.com)**.
@@ -26,20 +26,20 @@ Run the command-line suite to benchmark disambiguation across diverse semantic d
 python demo_cli.py
 ```
 
-### 2. Sleek Local Web UI Playground
-Start the zero-dependency web server and explore interactive manifold resonance graphs:
-```bash
-python app.py 8088
-```
-Then open **[http://localhost:8088](http://localhost:8088)** in your browser.
-
-### 3. Gradio App / Hugging Face Spaces Deployment ($0 Free CPU Tier)
-To run the Gradio app locally or deploy directly to a **Hugging Face Free Gradio Space**:
+### 2. Gradio App / Hugging Face Spaces Entrypoint (`app.py`)
+`app.py` is formatted for **Hugging Face Free Gradio Spaces** (`SDK: Gradio`). When uploaded to your HF Space, it launches automatically on port 7860.
+To run locally:
 ```bash
 pip install -r requirements.txt
-python gradio_app.py
+python app.py
 ```
-To deploy: create a new Space on Hugging Face (`SDK: Gradio`), and upload `gradio_app.py`, `translator.py`, `hdc_interlingua.py`, and `requirements.txt`. Rename `gradio_app.py` to `app.py` in your Space repository.
+
+### 3. Standalone Glassmorphic HTML Server (`standalone_server.py`)
+To run the lightweight zero-dependency HTML server locally:
+```bash
+python standalone_server.py 8088
+```
+Then open **[http://localhost:8088](http://localhost:8088)** in your browser.
 
 ---
 
