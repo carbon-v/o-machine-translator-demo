@@ -185,6 +185,9 @@ with gr.Blocks(title="O-Machine 10,000-D Interlingua Polysemy Engine", css=CUSTO
     examples_block = gr.Examples(
         examples=[
             [
+                "If I, I would wish it all away, if I thought I'd lose you just one day."
+            ],
+            [
                 "Here from the king's mountain view, here from a wild dream come true, feast like a sultan I do, of treasures and flesh never few."
             ],
             ["I deposited money and capital in the bank account."],

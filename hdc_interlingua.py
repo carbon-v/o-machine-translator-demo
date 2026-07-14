@@ -122,6 +122,8 @@ class HDCInterlinguaCore:
             "MEDICINE",
             "MUSIC",
             "ASTRONOMY",
+            "CONDITIONAL_INTENT",
+            "EMOTION_LOSS",
             "GENERAL",
         ]
         self.domain_vectors: Dict[str, np.ndarray] = {
@@ -137,6 +139,14 @@ class HDCInterlinguaCore:
         """
         # Unambiguous domain words (context anchors)
         self.domain_anchors: Dict[str, str] = {
+            # CONDITIONAL & HYPOTHETICAL INTENT
+            "if": "CONDITIONAL_INTENT",
+            "would": "CONDITIONAL_INTENT",
+            "thought": "CONDITIONAL_INTENT",
+            # EMOTION & LOSS
+            "wish": "EMOTION_LOSS",
+            "lose": "EMOTION_LOSS",
+            "dream": "EMOTION_LOSS",
             # FINANCE
             "money": "FINANCE",
             "cash": "FINANCE",
@@ -330,6 +340,26 @@ class HDCInterlinguaCore:
             "flesh": "chair",
             "never": "jamais",
             "few": "rares",
+            "if": "si",
+            "would": "[MODAL_COND]",
+            "wish": "renoncer",
+            "all": "tout",
+            "away": "à tout",
+            "thought": "pensais",
+            "lose": "perdre",
+            "you": "toi",
+            "just": "juste",
+            "one": "un",
+            "day": "jour",
+        }
+
+        # French Verb Conjugation & Synthetic Inflection Registry
+        self.french_verb_conjugations: Dict[str, Dict[str, str]] = {
+            "renoncer": {"COND_1SG": "renoncerais", "PAST_1SG": "ai renoncé"},
+            "souhaiter": {"COND_1SG": "souhaiterais", "PAST_1SG": "ai souhaité"},
+            "perdre": {"COND_1SG": "perdrais", "PAST_1SG": "ai perdu"},
+            "déposer": {"COND_1SG": "déposerais", "PAST_1SG": "ai déposé"},
+            "regarder": {"COND_1SG": "regarderais", "PAST_1SG": "ai regardé"},
         }
 
         # French Noun Grammatical Gender & Phonology Registry
@@ -358,6 +388,13 @@ class HDCInterlinguaCore:
             "infrastructure": "F_VOWEL",
             "grue": "F",
             "grue (engin de chantier)": "F",
+            "roi": "M",
+            "montagne": "F",
+            "vue": "F",
+            "rêve": "M",
+            "sultan": "M",
+            "chair": "F",
+            "jour": "M",
             "acier": "M_VOWEL",
             "béton": "M",
             "bâtiment": "M",
